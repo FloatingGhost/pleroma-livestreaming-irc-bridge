@@ -118,7 +118,9 @@ const setUpWebsocket = (socket, connection, channel) => {
     });
 };
 
-irc.listen(6667, function () {
+const port = parseInt(process.env.PORT || 6667);
+
+irc.listen(port, function () {
     console.log('Server is listening for connections on port 6667');
 });
  
