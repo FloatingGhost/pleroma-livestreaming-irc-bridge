@@ -71,9 +71,11 @@ const setUpWebsocket = (socket, connection, channel) => {
             console.log(`Received message ${type}, ${JSON.stringify(data)}`);
             switch (type) {
             case 1:
-                if (!connection.mask.includes(`${data.From}!`)) {
-                    const mask = remoteUserMask(connection, data.From);
-                    connection.send(mask, 'PRIVMSG', channel, `:${escape(data.Message)}`);
+                if (data.From.length !== 0) {
+                    if (!connection.mask.includes(`${data.From}!`)) {
+                        const mask = remoteUserMask(connection, data.From);
+                        connection.send(mask, 'PRIVMSG', channel, `:${escape(data.Message)}`);
+                    }
                 } else {
                     connection.send(true, 'PRIVMSG', channel, `:${data.Message}`);
                 }
